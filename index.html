@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student AI Survey</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Survey Web App</p>
+        <h1>Student Use of AI Survey</h1>
+        <p class="subtitle">
+          A mobile-friendly survey designed for higher-education students. Built to work well on iPad and send responses to Google Sheets in Google Drive.
+        </p>
+      </div>
+      <button type="button" id="toggleSettingsBtn" class="secondary-btn">Google Drive Setup</button>
+    </header>
+
+    <section id="settingsCard" class="card settings hidden">
+      <h2>Connect this app to Google Sheets</h2>
+      <p>
+        Paste your Google Apps Script Web App URL below. It will be saved only in this browser on your iPad.
+      </p>
+      <label for="scriptUrl">Apps Script Web App URL</label>
+      <input
+        type="url"
+        id="scriptUrl"
+        placeholder="https://script.google.com/macros/s/XXXXXXXX/exec"
+      />
+      <div class="settings-actions">
+        <button type="button" id="saveSettingsBtn" class="primary-btn">Save URL</button>
+        <button type="button" id="clearSettingsBtn" class="ghost-btn">Clear</button>
+      </div>
+      <p id="settingsMessage" class="helper-text"></p>
+    </section>
+
+    <main>
+      <form id="surveyForm" class="survey-form card">
+        <section class="form-section">
+          <h2>Student Background</h2>
+
+          <label for="nationality">1. What is your nationality?</label>
+          <input type="text" id="nationality" name="nationality" required />
+
+          <label for="studyCountry">Country of current study (optional)</label>
+          <input type="text" id="studyCountry" name="studyCountry" placeholder="Example: United States" />
+
+          <label for="educationLevel">2. What is your current education level?</label>
+          <select id="educationLevel" name="educationLevel" required>
+            <option value="">Select one</option>
+            <option>Undergraduate</option>
+            <option>Graduate</option>
+            <option>Other</option>
+          </select>
+
+          <label for="major">3. What is your major or field of study?</label>
+          <input type="text" id="major" name="major" required placeholder="Example: Data Science" />
+
+          <label for="techConfidence">4. How confident are you in your technology skills?</label>
+          <select id="techConfidence" name="techConfidence" required>
+            <option value="">Select one</option>
+            <option>Not confident at all</option>
+            <option>Slightly confident</option>
+            <option>Moderately confident</option>
+            <option>Very confident</option>
+            <option>Extremely confident / Expert</option>
+          </select>
+        </section>
+
+        <section class="form-section">
+          <h2>AI Usage</h2>
+          <p class="section-note">5. In which areas do you use AI? Select all that apply.</p>
+
+          <div class="checkbox-group">
+            <h3>5.1 Mental and personal support</h3>
+            <label><input type="checkbox" name="mentalPersonalSupport" value="Horoscope or astrology-related advice" /> Horoscope or astrology-related advice</label>
+            <label><input type="checkbox" name="mentalPersonalSupport" value="Mental health or emotional support" /> Mental health or emotional support</label>
+            <label><input type="checkbox" name="mentalPersonalSupport" value="Relationship or love advice" /> Relationship or love advice</label>
+            <label><input type="checkbox" name="mentalPersonalSupport" value="Other" /> Other</label>
+            <input type="text" name="mentalPersonalSupportOther" placeholder="If other, please specify" />
+          </div>
+
+          <div class="checkbox-group">
+            <h3>5.2 Social media use</h3>
+            <label><input type="checkbox" name="socialMediaUse" value="Creating captions for social media" /> Creating captions for social media</label>
+            <label><input type="checkbox" name="socialMediaUse" value="Creating posts for social media" /> Creating posts for social media</label>
+            <label><input type="checkbox" name="socialMediaUse" value="Translating posts or online content" /> Translating posts or online content</label>
+            <label><input type="checkbox" name="socialMediaUse" value="Other" /> Other</label>
+            <input type="text" name="socialMediaUseOther" placeholder="If other, please specify" />
+          </div>
+
+          <div class="checkbox-group">
+            <h3>5.3 Accessing campus services</h3>
+            <label><input type="checkbox" name="campusServices" value="Finding university information" /> Finding university information</label>
+            <label><input type="checkbox" name="campusServices" value="Asking about registration or enrollment" /> Asking about registration or enrollment</label>
+            <label><input type="checkbox" name="campusServices" value="Looking for student support services" /> Looking for student support services</label>
+            <label><input type="checkbox" name="campusServices" value="Finding campus facilities or departments" /> Finding campus facilities or departments</label>
+            <label><input type="checkbox" name="campusServices" value="Other" /> Other</label>
+            <input type="text" name="campusServicesOther" placeholder="If other, please specify" />
+          </div>
+
+          <div class="checkbox-group">
+            <h3>5.4 Studying</h3>
+            <label><input type="checkbox" name="studying" value="Completing assignments" /> Completing assignments</label>
+            <label><input type="checkbox" name="studying" value="Working on projects" /> Working on projects</label>
+            <label><input type="checkbox" name="studying" value="Summarizing lecture slides, articles, or books" /> Summarizing lecture slides, articles, or books</label>
+            <label><input type="checkbox" name="studying" value="Understanding difficult topics" /> Understanding difficult topics</label>
+            <label><input type="checkbox" name="studying" value="Other" /> Other</label>
+            <input type="text" name="studyingOther" placeholder="If other, please specify" />
+          </div>
+
+          <div class="checkbox-group">
+            <h3>5.5 Learning and assessment</h3>
+            <label><input type="checkbox" name="learningAssessment" value="Preparing for exams or quizzes" /> Preparing for exams or quizzes</label>
+            <label><input type="checkbox" name="learningAssessment" value="Practicing questions" /> Practicing questions</label>
+            <label><input type="checkbox" name="learningAssessment" value="Checking answers or getting feedback" /> Checking answers or getting feedback</label>
+            <label><input type="checkbox" name="learningAssessment" value="Improving writing or grammar" /> Improving writing or grammar</label>
+            <label><input type="checkbox" name="learningAssessment" value="Other" /> Other</label>
+            <input type="text" name="learningAssessmentOther" placeholder="If other, please specify" />
+          </div>
+
+          <div class="checkbox-group">
+            <h3>5.6 Research activities</h3>
+            <label><input type="checkbox" name="researchActivities" value="Translating academic papers" /> Translating academic papers</label>
+            <label><input type="checkbox" name="researchActivities" value="Rewriting text" /> Rewriting text</label>
+            <label><input type="checkbox" name="researchActivities" value="Choosing a research topic" /> Choosing a research topic</label>
+            <label><input type="checkbox" name="researchActivities" value="Summarizing articles" /> Summarizing articles</label>
+            <label><input type="checkbox" name="researchActivities" value="Finding background information" /> Finding background information</label>
+            <label><input type="checkbox" name="researchActivities" value="Other" /> Other</label>
+            <input type="text" name="researchActivitiesOther" placeholder="If other, please specify" />
+          </div>
+
+          <div class="checkbox-group">
+            <h3>5.7 Institutional communication</h3>
+            <label><input type="checkbox" name="institutionalCommunication" value="Writing emails" /> Writing emails</label>
+            <label><input type="checkbox" name="institutionalCommunication" value="Creating documents" /> Creating documents</label>
+            <label><input type="checkbox" name="institutionalCommunication" value="Translating messages or content" /> Translating messages or content</label>
+            <label><input type="checkbox" name="institutionalCommunication" value="Preparing formal communication" /> Preparing formal communication</label>
+            <label><input type="checkbox" name="institutionalCommunication" value="Other" /> Other</label>
+            <input type="text" name="institutionalCommunicationOther" placeholder="If other, please specify" />
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>Experience with AI</h2>
+
+          <fieldset>
+            <legend>6. Why do you use AI in these situations? Select all that apply.</legend>
+            <label><input type="checkbox" name="reasonsForUsingAI" value="To save time" /> To save time</label>
+            <label><input type="checkbox" name="reasonsForUsingAI" value="To improve performance" /> To improve performance</label>
+            <label><input type="checkbox" name="reasonsForUsingAI" value="To work more efficiently" /> To work more efficiently</label>
+            <label><input type="checkbox" name="reasonsForUsingAI" value="To reduce cost" /> To reduce cost</label>
+            <label><input type="checkbox" name="reasonsForUsingAI" value="Because of academic or institutional pressure" /> Because of academic or institutional pressure</label>
+            <label><input type="checkbox" name="reasonsForUsingAI" value="Because it has become a habit" /> Because it has become a habit</label>
+            <label><input type="checkbox" name="reasonsForUsingAI" value="To gain a competitive advantage" /> To gain a competitive advantage</label>
+            <label><input type="checkbox" name="reasonsForUsingAI" value="Other" /> Other</label>
+            <input type="text" name="reasonsForUsingAIOther" placeholder="If other, please specify" />
+          </fieldset>
+
+          <label for="expectationLevel">7. How often do AI-generated results meet your expectations?</label>
+          <select id="expectationLevel" name="expectationLevel" required>
+            <option value="">Select one</option>
+            <option>Rarely meet my expectations</option>
+            <option>Sometimes meet my expectations</option>
+            <option>Usually meet my expectations</option>
+            <option>Often exceed my expectations</option>
+          </select>
+
+          <label for="firstHelpSource">8. When you need help with technology or information about a place you have never been to, who do you usually ask first?</label>
+          <select id="firstHelpSource" name="firstHelpSource" required>
+            <option value="">Select one</option>
+            <option>Friend or relative</option>
+            <option>Search engine</option>
+            <option>AI tool (such as ChatGPT, Gemini, etc.)</option>
+            <option>Other</option>
+          </select>
+          <input type="text" name="firstHelpSourceOther" placeholder="If other, please specify" />
+
+          <label for="otherImpact">9. Has using AI had any other impact on your life? Please share if you are comfortable.</label>
+          <textarea id="otherImpact" name="otherImpact" rows="5" placeholder="Open-ended response"></textarea>
+        </section>
+
+        <section class="form-section">
+          <h2>Optional Extra Questions</h2>
+          <p class="section-note">These are optional but useful if you want richer survey data.</p>
+
+          <label for="usageFrequency">10. How often do you use AI tools in your daily life?</label>
+          <select id="usageFrequency" name="usageFrequency">
+            <option value="">Optional</option>
+            <option>Never</option>
+            <option>Rarely</option>
+            <option>Sometimes</option>
+            <option>Often</option>
+            <option>Very often</option>
+          </select>
+
+          <label for="trustInAI">11. How much do you trust the information provided by AI?</label>
+          <select id="trustInAI" name="trustInAI">
+            <option value="">Optional</option>
+            <option>Do not trust it at all</option>
+            <option>Trust it a little</option>
+            <option>Trust it moderately</option>
+            <option>Trust it a lot</option>
+            <option>Completely trust it</option>
+          </select>
+
+          <label for="verifyAI">12. How often do you verify or double-check AI-generated information before using it?</label>
+          <select id="verifyAI" name="verifyAI">
+            <option value="">Optional</option>
+            <option>Never</option>
+            <option>Rarely</option>
+            <option>Sometimes</option>
+            <option>Often</option>
+            <option>Always</option>
+          </select>
+
+          <label for="learningImpact">13. Do you think using AI has improved your learning experience?</label>
+          <select id="learningImpact" name="learningImpact">
+            <option value="">Optional</option>
+            <option>Strongly disagree</option>
+            <option>Disagree</option>
+            <option>Neutral</option>
+            <option>Agree</option>
+            <option>Strongly agree</option>
+          </select>
+
+          <label for="dependencyImpact">14. Do you think you have become too dependent on AI for studying or daily tasks?</label>
+          <select id="dependencyImpact" name="dependencyImpact">
+            <option value="">Optional</option>
+            <option>Strongly disagree</option>
+            <option>Disagree</option>
+            <option>Neutral</option>
+            <option>Agree</option>
+            <option>Strongly agree</option>
+          </select>
+
+          <label for="criticalThinkingImpact">15. Has AI use affected your critical thinking or problem-solving ability?</label>
+          <select id="criticalThinkingImpact" name="criticalThinkingImpact">
+            <option value="">Optional</option>
+            <option>Very negatively</option>
+            <option>Somewhat negatively</option>
+            <option>No impact</option>
+            <option>Somewhat positively</option>
+            <option>Very positively</option>
+          </select>
+
+          <fieldset>
+            <legend>16. What concerns do you have about using AI? Select all that apply.</legend>
+            <label><input type="checkbox" name="aiConcerns" value="Accuracy of information" /> Accuracy of information</label>
+            <label><input type="checkbox" name="aiConcerns" value="Privacy and data security" /> Privacy and data security</label>
+            <label><input type="checkbox" name="aiConcerns" value="Overdependence" /> Overdependence</label>
+            <label><input type="checkbox" name="aiConcerns" value="Reduced critical thinking" /> Reduced critical thinking</label>
+            <label><input type="checkbox" name="aiConcerns" value="Academic dishonesty" /> Academic dishonesty</label>
+            <label><input type="checkbox" name="aiConcerns" value="Bias in responses" /> Bias in responses</label>
+            <label><input type="checkbox" name="aiConcerns" value="No major concerns" /> No major concerns</label>
+            <label><input type="checkbox" name="aiConcerns" value="Other" /> Other</label>
+            <input type="text" name="aiConcernsOther" placeholder="If other, please specify" />
+          </fieldset>
+        </section>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-btn" id="submitBtn">Submit Survey</button>
+          <button type="reset" class="ghost-btn">Reset</button>
+        </div>
+
+        <p id="formMessage" class="form-message"></p>
+      </form>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
