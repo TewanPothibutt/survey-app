@@ -33,7 +33,7 @@ function buildPayload() {
   return {
     submittedAt: new Date().toISOString(),
     nationality: formData.get('nationality')?.trim() || '',
-    studyCountry: formData.get('studyCountry')?.trim() || '',
+    university: formData.get('university')?.trim() || '',
     educationLevel: formData.get('educationLevel') || '',
     major: formData.get('major')?.trim() || '',
     techConfidence: formData.get('techConfidence') || '',
