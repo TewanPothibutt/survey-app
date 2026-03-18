@@ -1,23 +1,8 @@
-const STORAGE_KEY = 'student-ai-survey-apps-script-url';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwt-F0I9MuBhVuKO68seEHPVFqdOkrVNG7NgaB3x-ORtp7VTmycqifaGpcFw35GoEt2tA/exec';
 
-const settingsCard = document.getElementById('settingsCard');
-const toggleSettingsBtn = document.getElementById('toggleSettingsBtn');
-const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-const clearSettingsBtn = document.getElementById('clearSettingsBtn');
-const scriptUrlInput = document.getElementById('scriptUrl');
-const settingsMessage = document.getElementById('settingsMessage');
 const surveyForm = document.getElementById('surveyForm');
 const formMessage = document.getElementById('formMessage');
 const submitBtn = document.getElementById('submitBtn');
-
-function loadSettings() {
-  const savedUrl = localStorage.getItem(STORAGE_KEY) || '';
-  scriptUrlInput.value = savedUrl;
-  if (savedUrl) {
-    settingsMessage.textContent = 'Apps Script URL saved in this browser.';
-    settingsMessage.className = 'helper-text success';
-  }
-}
 
 function setMessage(el, text, type = '') {
   el.textContent = text;
@@ -33,7 +18,7 @@ function buildPayload() {
   return {
     submittedAt: new Date().toISOString(),
     nationality: formData.get('nationality')?.trim() || '',
-    university: formData.get('university')?.trim() || '',
+    unviversity: formData.get('university')?.trim() || '',
     educationLevel: formData.get('educationLevel') || '',
     major: formData.get('major')?.trim() || '',
     techConfidence: formData.get('techConfidence') || '',
@@ -71,10 +56,9 @@ function buildPayload() {
 async function submitSurvey(event) {
   event.preventDefault();
 
-  const scriptUrl = (localStorage.getItem(STORAGE_KEY) || '').trim();
-  if (!scriptUrl) {
-    settingsCard.classList.remove('hidden');
-    setMessage(formMessage, 'Please save your Apps Script Web App URL first.', 'warning');
+  const scriptUrl = APPS_SCRIPT_URL.trim();
+  if (!scriptUrl || scriptUrl === 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE') {
+    setMessage(formMessage, 'Set your Apps Script Web App URL in app.js before publishing the site.', 'warning');
     return;
   }
 
@@ -97,33 +81,11 @@ async function submitSurvey(event) {
     setMessage(formMessage, 'Survey submitted. Check your Google Sheet to confirm the new row was added.', 'success');
   } catch (error) {
     console.error(error);
-    setMessage(formMessage, 'Something went wrong while submitting. Please verify your Apps Script URL and deployment settings.', 'warning');
+    setMessage(formMessage, 'Something went wrong while submitting. Please verify your Apps Script deployment settings and embedded URL.', 'warning');
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Submit Survey';
   }
 }
 
-toggleSettingsBtn.addEventListener('click', () => {
-  settingsCard.classList.toggle('hidden');
-});
-
-saveSettingsBtn.addEventListener('click', () => {
-  const url = scriptUrlInput.value.trim();
-  if (!url) {
-    setMessage(settingsMessage, 'Please paste a valid Apps Script URL.', 'warning');
-    return;
-  }
-
-  localStorage.setItem(STORAGE_KEY, url);
-  setMessage(settingsMessage, 'Saved. This iPad browser is now linked to your Google Sheet backend.', 'success');
-});
-
-clearSettingsBtn.addEventListener('click', () => {
-  localStorage.removeItem(STORAGE_KEY);
-  scriptUrlInput.value = '';
-  setMessage(settingsMessage, 'Saved URL removed from this browser.', '');
-});
-
 surveyForm.addEventListener('submit', submitSurvey);
-loadSettings();
