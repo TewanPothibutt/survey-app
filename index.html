@@ -16,26 +16,8 @@
           A mobile-friendly survey designed for higher-education students. Built to work well on iPad and send responses to Google Sheets in Google Drive.
         </p>
       </div>
-      <button type="button" id="toggleSettingsBtn" class="secondary-btn">Google Drive Setup</button>
+      
     </header>
-
-    <section id="settingsCard" class="card settings hidden">
-      <h2>Connect this app to Google Sheets</h2>
-      <p>
-        Paste your Google Apps Script Web App URL below. It will be saved only in this browser on your iPad.
-      </p>
-      <label for="scriptUrl">Apps Script Web App URL</label>
-      <input
-        type="url"
-        id="scriptUrl"
-        placeholder="https://script.google.com/macros/s/XXXXXXXX/exec"
-      />
-      <div class="settings-actions">
-        <button type="button" id="saveSettingsBtn" class="primary-btn">Save URL</button>
-        <button type="button" id="clearSettingsBtn" class="ghost-btn">Clear</button>
-      </div>
-      <p id="settingsMessage" class="helper-text"></p>
-    </section>
 
     <main>
       <form id="surveyForm" class="survey-form card">
@@ -45,8 +27,8 @@
           <label for="nationality">1. What is your nationality?</label>
           <input type="text" id="nationality" name="nationality" required />
 
-          <label for="university">What is your University?</label>
-          <input type="text" id="university" name="university" placeholder="Example: Pace University" />
+          <label for="studyCountry">Country of current study (optional)</label>
+          <input type="text" id="studyCountry" name="studyCountry" placeholder="Example: United States" />
 
           <label for="educationLevel">2. What is your current education level?</label>
           <select id="educationLevel" name="educationLevel" required>
