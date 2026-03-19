@@ -1,4 +1,4 @@
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwt-F0I9MuBhVuKO68seEHPVFqdOkrVNG7NgaB3x-ORtp7VTmycqifaGpcFw35GoEt2tA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxy_qM9uBdzaug4961pIzO9iN-7J8Fvi3PVDDC0iGbAb09IdzHTA6Hn7fD6b7rNNsNo3Q/exec';
 
 const surveyForm = document.getElementById('surveyForm');
 const formMessage = document.getElementById('formMessage');
